@@ -8,7 +8,7 @@ body.container {
     align-items: center;
 }
 
-#select_pais {
+#continente {
     width: 30%;
     display: flex;
 }

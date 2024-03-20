@@ -1,0 +1,133 @@
+body.container {
+    margin-top: 5vh;
+}
+
+.encabezado_tabla {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#select_pais {
+    width: 30%;
+    display: flex;
+}
+
+.popUp {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.popUp .container {
+    background-color: white;
+    width: 60%;
+    height: 400px;
+    margin-top: calc(50vh - 200px);
+    position: relative;
+}
+
+.popUp form {
+    padding: 40px;
+}
+
+.popUp i {
+    color: red;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+
+/*ESTILOS LOGIN Y REGISTRO*/
+* {
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+
+body.login_page {
+    font-family: Arial;
+    background-color: #3498DB;
+    padding: 50px;
+}
+
+.login {
+    margin: 20px auto;
+    width: 300px;
+}
+
+.login-screen {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 5px
+}
+
+.app-title {
+    text-align: center;
+    color: #777;
+}
+
+.login-form {
+    text-align: center;
+}
+
+.control-group {
+    margin-bottom: 10px;
+}
+
+input {
+    text-align: center;
+    background-color: #ECF0F1;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 200;
+    padding: 10px 0;
+    width: 250px;
+    transition: border .5s;
+}
+
+input:focus {
+    border: 2px solid #3498DB;
+    box-shadow: none;
+}
+
+.btn {
+    border: 2px solid transparent;
+    background: #3498DB;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 10px 0;
+    text-decoration: none;
+    text-shadow: none;
+    border-radius: 3px;
+    box-shadow: none;
+    transition: 0.25s;
+    display: block;
+    width: 250px;
+    margin: 0 auto;
+}
+
+.btn:hover {
+    background-color: #2980B9;
+}
+
+.login-link {
+    font-size: 12px;
+    color: #444;
+    display: block;
+    margin-top: 12px;
+}
+.login .error{
+    color: red;
+    font-size: 11px;
+    margin-top: 4px;
+}

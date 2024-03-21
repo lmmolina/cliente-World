@@ -126,8 +126,17 @@ input:focus {
     display: block;
     margin-top: 12px;
 }
-.login .error{
+
+.login .error {
     color: red;
     font-size: 11px;
     margin-top: 4px;
+}
+
+.paginacion {
+    text-align: center;
+}
+
+.paginacion a {
+    margin: 10px;
 }

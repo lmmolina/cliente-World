@@ -25,10 +25,11 @@ body.container {
 .popUp .container {
     background-color: white;
     width: 60%;
-    height: 400px;
-    margin-top: calc(50vh - 200px);
+    height: 500px;
+    margin-top: calc(50vh - 250px);
     position: relative;
 }
+
 
 .popUp form {
     padding: 40px;

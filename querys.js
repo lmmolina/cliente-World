@@ -10,8 +10,12 @@ $(document).ready(function () {
         .fail(function () {
             alert("error");
         });
+    cargarPaises();
+});
 
-
+function cargarPaises() {
+    $(".tabla_paises tbody").html("");
+    $(".paginacion").html("");
     $.get("http://localhost/api/paises/")
         .done(function (respP) {
             paises = respP;
@@ -39,16 +43,14 @@ $(document).ready(function () {
             }
             let paginas = Math.ceil(respP.length / 25);
             for (let i = 1; i <= paginas; i++) {
-                $(".paginacion").append("<a href='#' onclick='navegarPaginacion("+i+")'>" + i + "</a>");
+                $(".paginacion").append("<a href='#' onclick='navegarPaginacion(" + i + ")'>" + i + "</a>");
             }
 
         })
         .fail(function () {
             alert("error");
         });
-});
-
-
+}
 
 function filtrarContinente() {
     continente_select = $("#continente select").val();
@@ -78,7 +80,7 @@ function filtrarContinente() {
     let paginas = Math.ceil(cont / 25);
     $(".paginacion").html("");
     for (let i = 1; i <= paginas; i++) {
-        $(".paginacion").append("<a href='#' onclick='navegarPaginacion("+i+")'>" + i + "</a>");
+        $(".paginacion").append("<a href='#' onclick='navegarPaginacion(" + i + ")'>" + i + "</a>");
     }
 }
 
@@ -113,4 +115,44 @@ function navegarPaginacion(pag) {
             $(".tabla_paises tbody").append(html);
         }
     }
+}
+
+function mostrarPopUP() {
+    $(".popUp").fadeIn();
+}
+
+function ocultarPopUP() {
+    $(".popUp").fadeOut();
+}
+
+function registarPais() {
+    let code = $("#code").val();
+    let nombre = $("#nombre").val();
+    let continente = $("#continenteP").val();
+    let capital = $("#capital").val();
+    let poblacion = $("#poblacion").val();
+    let pib = $("#pib").val();
+    let jefe = $("#jefe").val();
+    if (code.trim() == "" || nombre.trim() == "") {
+        alert("Debe introducir al menos el nombre y codigo del pais");
+        return;
+    }
+
+    $.post("http://localhost/api/paises/",
+        {
+            code,
+            nombre,
+            continente,
+            capital,
+            poblacion,
+            pib,
+            jefe
+        }).done(function (resp) {
+            if (resp.status == "success") {
+                ocultarPopUP();
+                cargarPaises();
+            }
+        }).fail(function () {
+            alert("No se pudo insertar los valores en la base de datos.")
+        });
 }

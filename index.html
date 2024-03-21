@@ -43,7 +43,7 @@
             </tr>
         </thead>
         <tbody>
-            
+
         </tbody>
 
     </table>
@@ -55,7 +55,12 @@
 
             <form action="" method="post">
                 <input type="hidden" name="idmod" id="idmod" value="">
-
+                <div class="mb-3 row">
+                    <label for="code" class="col-sm-4 col-form-label">Código:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="code" name="code" value="">
+                    </div>
+                </div>
                 <div class="mb-3 row">
                     <label for="nombre" class="col-sm-4 col-form-label">Nombre:</label>
                     <div class="col-sm-8">
@@ -63,18 +68,36 @@
                     </div>
                 </div>
                 <div class=" mb-3 row">
-                    <label for="estado" class="col-sm-4 col-form-label">Comunidad Autónoma:</label>
+                    <label for="capital" class="col-sm-4 col-form-label">Capital:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="estado" name="estado" value="">
+                        <input type="text" class="form-control" id="capital" name="capital" value="">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="poblacion" class="col-sm-4 col-form-label">Población</label>
+                    <label for="continenteP" class="col-sm-4 col-form-label">Continente</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="continenteP" name="continenteP" value="">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="poblacion" class="col-sm-4 col-form-label">Población:</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="poblacion" name="poblacion" value="">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <div class="mb-3 row">
+                    <label for="pib" class="col-sm-4 col-form-label">PIB:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="pib" name="pib" value="">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="jefe" class="col-sm-4 col-form-label">Jefe de Estado:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="jefe" name="jefe" value="">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="registarPais()">Guardar</button>
                 <i class="bi bi-x-square-fill" onclick="ocultarPopUP()"></i>
             </form>
 

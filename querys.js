@@ -33,7 +33,7 @@ function cargarPaises() {
                                 "<td>" + pais.GNP + "</td>" +
                                 "<td>" + pais.HeadOfState + "</td>" +
                                 "<td>" +
-                                '<a href="?mod=625"><i class="bi bi-pencil-square"></i> Modificar</a> |' +
+                                '<a href="#" onclick="actualizarPais(\'' + pais.Code + '\')"><i class="bi bi-pencil-square"></i> Modificar</a> |' +
                                 '<a href="?del=625"><i class="bi bi-trash"></i> Eliminar</a>' +
                                 "</td>" +
                                 "</tr>";
@@ -69,7 +69,7 @@ function filtrarContinente() {
                     "<td>" + pais.GNP + "</td>" +
                     "<td>" + pais.HeadOfState + "</td>" +
                     "<td>" +
-                    '<a href="?mod=625"><i class="bi bi-pencil-square"></i> Modificar</a> |' +
+                    '<a href="#" onclick="actualizarPais(\'' + pais.Code + '\')"><i class="bi bi-pencil-square"></i> Modificar</a> |' +
                     '<a href="?del=625"><i class="bi bi-trash"></i> Eliminar</a>' +
                     "</td>" +
                     "</tr>";
@@ -108,7 +108,7 @@ function navegarPaginacion(pag) {
                 "<td>" + pais.GNP + "</td>" +
                 "<td>" + pais.HeadOfState + "</td>" +
                 "<td>" +
-                '<a href="?mod=625"><i class="bi bi-pencil-square"></i> Modificar</a> |' +
+                '<a href="#" onclick="actualizarPais(\'' + pais.Code + '\')"><i class="bi bi-pencil-square"></i> Modificar</a> |' +
                 '<a href="?del=625"><i class="bi bi-trash"></i> Eliminar</a>' +
                 "</td>" +
                 "</tr>";
@@ -119,13 +119,16 @@ function navegarPaginacion(pag) {
 
 function mostrarPopUP() {
     $(".popUp").fadeIn();
+    $("#code").attr("disabled", false);
+    $(".popUp").attr("estado", "registrar");
 }
 
 function ocultarPopUP() {
     $(".popUp").fadeOut();
+    $(".popUp input").val("");
 }
 
-function registarPais() {
+function guardarPais() {
     let code = $("#code").val();
     let nombre = $("#nombre").val();
     let continente = $("#continenteP").val();
@@ -137,9 +140,14 @@ function registarPais() {
         alert("Debe introducir al menos el nombre y codigo del pais");
         return;
     }
-
-    $.post("http://localhost/api/paises/",
-        {
+    let peticion = "POST";
+    if ($(".popUp").attr("estado") == "actualizacion") {
+        peticion = "PUT";
+    }
+    $.ajax({
+        url: "http://localhost/api/paises/",
+        type: peticion,
+        data: {
             code,
             nombre,
             continente,
@@ -147,12 +155,49 @@ function registarPais() {
             poblacion,
             pib,
             jefe
-        }).done(function (resp) {
-            if (resp.status == "success") {
-                ocultarPopUP();
-                cargarPaises();
-            }
-        }).fail(function () {
-            alert("No se pudo insertar los valores en la base de datos.")
+        }
+    }).done(function (resp) {
+        if (resp.status == "success") {
+            ocultarPopUP();
+            cargarPaises();
+        }
+    }).fail(function () {
+        alert("No se pudo insertar los valores en la base de datos.")
+    });
+}
+
+function actualizarPais(id) {
+    mostrarPopUP();
+    $("#code").attr("disabled", true);
+    $(".popUp").attr("estado", "actualizacion");
+    let paisL = null;
+    let paisR = null;
+    for (const pais of paises) {
+        if (pais.Code == id) {
+            paisL = pais;
+        }
+    }
+    $.get("http://localhost/api/paises/?pais=" + id)
+        .done(function (resp) {
+            paisR = resp[0];
+
+            $("#code").val(id);
+            $("#nombre").val(paisR.Name);
+            $("#continenteP").val(paisR.Continent);
+            $("#capital").val(paisR.Capital);
+            $("#poblacion").val(paisR.Population);
+            $("#pib").val(paisR.GNP);
+            $("#jefe").val(paisR.HeadOfState);
+
+        })
+        .fail(function () {
+            $("#codigo").val(id);
+            $("#nombre").val(paisL.Name);
+            $("#continenteP").val(paisL.Continent);
+            $("#capital").val(paisL.Capital);
+            $("#poblacion").val(paisL.Population);
+            $("#pib").val(paisL.GNP);
+            $("#jefe").val(paisL.HeadOfState);
         });
+
 }

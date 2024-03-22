@@ -34,7 +34,7 @@ function cargarPaises() {
                                 "<td>" + pais.HeadOfState + "</td>" +
                                 "<td>" +
                                 '<a href="#" onclick="actualizarPais(\'' + pais.Code + '\')"><i class="bi bi-pencil-square"></i> Modificar</a> |' +
-                                '<a href="?del=625"><i class="bi bi-trash"></i> Eliminar</a>' +
+                                '<a href="#" onclick="eliminarPais(\'' + pais.Code + '\')><i class="bi bi-trash"></i> Eliminar</a>' +
                                 "</td>" +
                                 "</tr>";
                             $(".tabla_paises tbody").append(html);
@@ -70,7 +70,7 @@ function filtrarContinente() {
                     "<td>" + pais.HeadOfState + "</td>" +
                     "<td>" +
                     '<a href="#" onclick="actualizarPais(\'' + pais.Code + '\')"><i class="bi bi-pencil-square"></i> Modificar</a> |' +
-                    '<a href="?del=625"><i class="bi bi-trash"></i> Eliminar</a>' +
+                    '<a href="#" onclick="eliminarPais(\'' + pais.Code + '\')><i class="bi bi-trash"></i> Eliminar</a>' +
                     "</td>" +
                     "</tr>";
                 $(".tabla_paises tbody").append(html);
@@ -109,7 +109,7 @@ function navegarPaginacion(pag) {
                 "<td>" + pais.HeadOfState + "</td>" +
                 "<td>" +
                 '<a href="#" onclick="actualizarPais(\'' + pais.Code + '\')"><i class="bi bi-pencil-square"></i> Modificar</a> |' +
-                '<a href="?del=625"><i class="bi bi-trash"></i> Eliminar</a>' +
+                '<a href="#" onclick="eliminarPais(\'' + pais.Code + '\')"><i class="bi bi-trash"></i> Eliminar</a>' +
                 "</td>" +
                 "</tr>";
             $(".tabla_paises tbody").append(html);
@@ -200,4 +200,21 @@ function actualizarPais(id) {
             $("#jefe").val(paisL.HeadOfState);
         });
 
+}
+
+function eliminarPais(id) {
+    $.ajax({
+        url: "http://localhost/api/paises/",
+        type: "DELETE",
+        data: {
+            id
+        }
+    }).done(function (resp) {
+        if (resp.status == "success") {
+            alert("Se hab eliminado el pais");
+            cargarPaises();
+        }
+    }).fail(function () {
+        alert("Error inesperado.")
+    });
 }
